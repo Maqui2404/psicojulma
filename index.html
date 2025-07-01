@@ -100,36 +100,33 @@
   </form>
 
   <script>
-    document.getElementById("formulario").addEventListener("submit", async function(e) {
-      e.preventDefault();
+  document.getElementById("formulario").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-      const data = {
-        codigo: document.getElementById("codigo").value,
-        email: document.getElementById("email").value,
-        edad: document.getElementById("edad").value,
-        genero: document.getElementById("genero").value,
-        p1: document.getElementById("p1").value,
-        p2: document.getElementById("p2").value,
-        p3: document.getElementById("p3").value,
-        p4: document.getElementById("p4").value
-      };
+    const form = new FormData();
+    form.append("codigo", document.getElementById("codigo").value);
+    form.append("email", document.getElementById("email").value);
+    form.append("edad", document.getElementById("edad").value);
+    form.append("genero", document.getElementById("genero").value);
+    form.append("p1", document.getElementById("p1").value);
+    form.append("p2", document.getElementById("p2").value);
+    form.append("p3", document.getElementById("p3").value);
+    form.append("p4", document.getElementById("p4").value);
 
-      try {
-        await fetch("https://script.google.com/macros/s/AKfycbzMiqYBjxtOBFTRSN1ASx1zEhDBpB62KiUPY5d__pzycnIjgI6xeA9p1xFm_O3oi_Np/exec", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbzMiqYBjxtOBFTRSN1ASx1zEhDBpB62KiUPY5d__pzycnIjgI6xeA9p1xFm_O3oi_Np/exec", {
+        method: "POST",
+        body: form
+      });
 
-        document.getElementById("mensajeExito").innerText = "¡Respuestas enviadas exitosamente!";
-        document.getElementById("formulario").reset();
-      } catch (error) {
-        alert("Error al enviar datos: " + error);
-      }
-    });
-  </script>
+      document.getElementById("mensajeExito").innerText = "¡Respuestas enviadas exitosamente!";
+      document.getElementById("formulario").reset();
+    } catch (error) {
+      alert("Error al enviar datos: " + error);
+    }
+  });
+</script>
+
 
 </body>
 </html>
