@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Evaluación Psicológica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    form {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .success {
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Formulario de Evaluación Psicológica</h2>
+
+  <form id="formulario">
+    <label for="codigo">Código del participante</label>
+    <input type="text" id="codigo" required>
+
+    <label for="email">Correo electrónico</label>
+    <input type="email" id="email" required>
+
+    <label for="edad">Edad</label>
+    <input type="number" id="edad" required>
+
+    <label for="genero">Género</label>
+    <select id="genero">
+      <option value="Masculino">Masculino</option>
+      <option value="Femenino">Femenino</option>
+      <option value="Otro">Otro</option>
+    </select>
+
+    <label for="p1">Pregunta 1: Adaptabilidad</label>
+    <input type="number" id="p1" min="1" max="5" required>
+
+    <label for="p2">Pregunta 2: Manejo del estrés</label>
+    <input type="number" id="p2" min="1" max="5" required>
+
+    <label for="p3">Pregunta 3: Cohesión</label>
+    <input type="number" id="p3" min="1" max="5" required>
+
+    <label for="p4">Pregunta 4: Expresividad</label>
+    <input type="number" id="p4" min="1" max="5" required>
+
+    <button type="submit">Enviar respuestas</button>
+    <div class="success" id="mensajeExito"></div>
+  </form>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const data = {
+        codigo: document.getElementById("codigo").value,
+        email: document.getElementById("email").value,
+        edad: document.getElementById("edad").value,
+        genero: document.getElementById("genero").value,
+        p1: document.getElementById("p1").value,
+        p2: document.getElementById("p2").value,
+        p3: document.getElementById("p3").value,
+        p4: document.getElementById("p4").value
+      };
+
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbzMiqYBjxtOBFTRSN1ASx1zEhDBpB62KiUPY5d__pzycnIjgI6xeA9p1xFm_O3oi_Np/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        document.getElementById("mensajeExito").innerText = "¡Respuestas enviadas exitosamente!";
+        document.getElementById("formulario").reset();
+      } catch (error) {
+        alert("Error al enviar datos: " + error);
+      }
+    });
+  </script>
+
+</body>
+</html>
